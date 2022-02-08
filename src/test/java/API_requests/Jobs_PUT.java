@@ -79,48 +79,40 @@ public class Jobs_PUT {
             requestParam.put("Job Description",Job_Description);
         }
 
-
-
-
-//        requestParam.put("Job Company Name",Job_Company_Name);
-//        requestParam.put("Job Location",Job_Location);
-//        requestParam.put("Job Type",Job_Type);
-//        requestParam.put("Job Posted time",Job_Posted_time);
-//        requestParam.put("Job Description",Job_Description);
-
         request.header("Content-Type","application/json");
         request.body(requestParam.toJSONString());
         //Response object
         Response response=request.request(Method.PUT);
+        String responsebody=response.getBody().asString();
         Assert.assertEquals(response.getStatusCode(),Integer.parseInt(StatusCode_expected));
 
         if (StatusCode_expected.equals(Success_Status)){
             if (Job_Id!=null) {
-                Assert.assertEquals(response.jsonPath().get("Job Id"),Job_Id);
+                Assert.assertEquals(responsebody.contains(Job_Id),true);
             }
             if (Job_Title!=null) {
-                Assert.assertEquals(response.jsonPath().get("Job Title"),Job_Title);
+                Assert.assertEquals(responsebody.contains(Job_Title),true);
             }
             if (Job_Company_Name!=null) {
-                Assert.assertEquals(response.jsonPath().get("Job Company Name"),Job_Company_Name);
+                Assert.assertEquals(responsebody.contains(Job_Company_Name),true);
             }
             if (Job_Location!=null) {
-                Assert.assertEquals(response.jsonPath().get("Job Location"),Job_Location);
+                Assert.assertEquals(responsebody.contains(Job_Location),true);
             }
             if (Job_Type!=null) {
-                Assert.assertEquals(response.jsonPath().get("Job_Type"),Job_Type);
+                Assert.assertEquals(responsebody.contains(Job_Type),true);
             }
             if (Job_Posted_time!=null) {
-                Assert.assertEquals(response.jsonPath().get("Job Posted time"),Job_Posted_time);
+                Assert.assertEquals(responsebody.contains(Job_Posted_time),true);
             }
             if (Job_Description!=null) {
-                Assert.assertEquals(response.jsonPath().get("Job Description"),Job_Description);
+                Assert.assertEquals(responsebody.contains(Job_Description),true);
             }
 
         }
 
 
-        System.out.println("The Response Body is :"+response.getBody().asString());
+        System.out.println("The Response Body is :"+responsebody);
 
 
     }
